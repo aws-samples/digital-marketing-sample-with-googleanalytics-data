@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=<GA_ID>"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const userId = urlParams.get('uid');
+  if (userId) {
+    gtag('config', '<GA_ID>', { 'user_id': userId });
+  } else {
+    gtag('config', '<GA_ID>');
+  }
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dummy EC Site</title>
+<style>
+    body { font-family: Arial, sans-serif; }
+    .product { border: 1px solid #ddd; padding: 10px; margin: 10px; cursor: pointer; }
+</style>
+</head>
+<body>
+    <h1>Dummy EC Site</h1>
+    <h2>Product List</h2>
+    <div class="product" onclick="viewProduct(1)">Product 1</div>
+    <div class="product" onclick="viewProduct(2)">Product 2</div>
+    <div class="product" onclick="viewProduct(3)">Product 3</div>
+    <div class="product" onclick="viewProduct(4)">Product 4</div>
+    <br>
+    <button onclick="gotocart()">Go to Cart</a>
+
+    <script>
+        function gotocart() {
+            window.location.href = `cart.html?uid=${userId}`;
+        }
+        function viewProduct(id, uid) {
+            window.location.href = `product.html?id=${id}&uid=${userId}`;
+        }
+    </script>
+</body>
+</html>
+

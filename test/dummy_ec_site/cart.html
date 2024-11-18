@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=<GA_ID>"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  const urlParams = new URLSearchParams(window.location.search);
+  const userId = urlParams.get('uid');
+  if (userId) {
+    gtag('config', '<GA_ID>', { 'user_id': userId });
+  } else {
+    gtag('config', '<GA_ID>');
+  }
+
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart</title>
+<style>
+    body { font-family: Arial, sans-serif; }
+    .product { border: 1px solid #ddd; padding: 10px; margin: 10px; }
+</style>
+</head>
+<body>
+    <h1>Cart</h1>
+    <div id="cartItems"></div>
+    <button onclick="purchase()">買う</button>
+    <button onclick="clearcart()">カートを空にする</button>
+    <button onclick="cancel()">Go to Top</button>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        document.getElementById('cartItems').innerHTML = cart.map(item => `<div class="product">${item}</div>`).join('');
+
+        function purchase() {
+            const itemnum = cart.length
+            const productIds = cart.map(item => {
+                const match = item.match(/Product (\d+) details/);
+                return match ? match[1] : null;
+            }).filter(id => id !== null);
+
+            let value = 0
+            const items = []
+            for (const productId of productIds) {
+              value += 100 * productId;
+              items.push({
+                quantity: 1,
+                price: 100 * productId,
+                item_id: productId
+              });
+            }
+              
+            gtag("event", "purchase", {
+              currency: "JPY",
+              value: value,
+              items: items
+            }); 
+            localStorage.removeItem('cart');
+            window.location.href = `thankyou.html?uid=${userId}`;
+        }
+        function clearcart() {
+            localStorage.removeItem('cart');
+        }
+      
+
+        function cancel() {
+            window.location.href = `index.html?uid=${userId}`;
+        }
+    </script>
+</body>
+</html>
+

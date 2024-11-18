@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=<GA_ID>"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  const urlParams = new URLSearchParams(window.location.search);
+  const userId = urlParams.get('uid');
+  if (userId) {
+    gtag('config', '<GA_ID>', { 'user_id': userId });
+  } else {
+    gtag('config', '<GA_ID>');
+  }
+
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You</title>
+<style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+</style>
+</head>
+<body>
+    <h1>Thank You for Your Purchase!</h1>
+    <button onclick="gototop()">Go to Home</a>
+    <script>
+        function gototop() {
+            window.location.href = `index.html?uid=${userId}`;
+        }
+    </script>
+</body>
+</html>
+

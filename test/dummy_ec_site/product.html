@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=<GA_ID>"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const userId = urlParams.get('uid');
+  const productId = urlParams.get('id');
+  if (userId) {
+    gtag('config', '<GA_ID>', { 'user_id': userId });
+  } else {
+    gtag('config', '<GA_ID>');
+  }
+
+  gtag("event", "view_item", {
+    currency: "JPY",
+    value: 100 * productId,
+    items: [{
+      item_id: productId,
+      price: 100,
+      quantity: 1
+    }]
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Detail</title>
+<style>
+    body { font-family: Arial, sans-serif; }
+    .product { border: 1px solid #ddd; padding: 10px; margin: 10px; }
+</style>
+</head>
+<body>
+    <h1>Product Detail</h1>
+    <div class="product" id="productDetail"></div>
+    <button onclick="addToCart()">Add to Cart</button>
+
+    <script>
+        const productDetails = {
+            1: 'Product 1 details',
+            2: 'Product 2 details',
+            3: 'Product 3 details',
+            4: 'Product 4 details'
+        };
+        document.getElementById('productDetail').innerText = productDetails[productId];
+
+        function addToCart() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push(productDetails[productId]);
+            gtag("event", "add_to_cart", {
+              currency: "JPY",
+              value: 100 * productId,
+              items: [{
+                item_id: productId,
+                price: 100,
+                quantity: 1
+              }]
+            }); 
+            localStorage.setItem('cart', JSON.stringify(cart));
+            window.location.href = `cart.html?uid=${userId}`;
+        }
+    </script>
+</body>
+</html>
+
