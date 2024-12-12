@@ -2,13 +2,13 @@
 
 ## 1. テストデータの生成と投入
 
-- BastionHost(踏み台) にて[テストデータ生成スクリプト](../test/gen_auroratestdata.py)を実行してください
+* BastionHost(踏み台) にて[テストデータ生成スクリプト](../test/gen_auroratestdata.py)を実行してください
 
 ```bash
 python3 gen_auroratestdata.py
 ```
 
-- [テストデータ投入スクリプト](../test/insert_dummy.sh) を編集し、<DBHOST> を実際の Amazon Aurora の Host に設定してから実行してください
+* [テストデータ投入スクリプト](../test/insert_dummy.sh) を編集し、<DBHOST> を実際の Amazon Aurora の Host に設定してから実行してください
 
 ```bash
 bash insert_dummy.sh
@@ -18,7 +18,7 @@ bash insert_dummy.sh
 
 ## 2. Dummy の EC site へアクセス
 
-[こちら](./GA.md)でデプロイした Dummy の EC サイトへ任意のブラウザでアクセスし、アイテムを閲覧してください。この際、 URL の QueryString に`uid=<任意のUserId>` を付与することで、Google Analytics にその UserId の行動として記録されます。Amazon Personalize では学習のために最低 25 人のユーザが必要であるため、25 人分以上のユーザの行動を実施してください。また全体で 1000 イベント必要です。UserId の値は任意ですが、データベースの user_master テーブルにある user_id と合致させる必要があります
+[こちら](./GA.md)でデプロイした Dummy の EC サイトへ任意のブラウザでアクセスし、アイテムを閲覧してください。この際、 URL の QueryString に`uid=<任意のUserId>` を付与することで、Google Analytics にその UserId の行動として記録されます。Amazon Personalize では**学習のために最低25人のユーザが必要であるため、25人分以上のユーザの行動を実施してください。また全体で 1000 イベント必要です**。UserId の値は任意ですが、データベースの user_master テーブルにある user_id と合致させる必要があります
 
 ## 3. Google Analytics および BigQuery での記録を確認
 

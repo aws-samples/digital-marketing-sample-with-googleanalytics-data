@@ -60,29 +60,29 @@ npm run cdk -- deploy --require-approval never
 { "credentials": "{GCPのクレデンシャル}" }
 ```
 
-## 7. Amazon Aurora Database 　への接続情報確認
+## 7. Amazon Aurora Database への接続情報確認
 
 同じく AWS Secrets Manager のマネジメントコンソールで、`DatabaseAuroraClusterSecret`で始まる名前の Secret を開くと DB の接続情報を取得可能です。こちらを別タブなどで開いた状態にしてください
 
 ## 8. Amazon Aurora Database setup
 
-- [Amazon EC2 のマネジメントコンソール](https://ap-northeast-1.console.aws.amazon.com/ec2/home?region=ap-northeast-1#Instances:instanceState=running)を開き、BastionHost のインスタンスのチェックボックスにチェックをいれ、`Connect` をクリックしてください
+* [Amazon EC2 のマネジメントコンソール](https://ap-northeast-1.console.aws.amazon.com/ec2/home?region=ap-northeast-1#Instances:instanceState=running)を開き、BastionHost のインスタンスのチェックボックスにチェックをいれ、`Connect` をクリックしてください
   `Session Manager` タブを開いて、`Connect` をクリックしてください。
   BastionHost(踏み台) のターミナルを開くことができます。
 
-- Terminal で下記コマンドを実行し、ec2-user になります
+* Terminal で下記コマンドを実行し、ec2-user になります
 
 ```
 sudo su - ec2-user
 ```
 
-- vim などのエディタで create_tables.sql というテキストを作成し[create_tables.sql](../dbsetup/aurora/create_tables.sql) の内容をコピーしてください
+* vim などのエディタで create_tables.sql というテキストを作成し[create_tables.sql](../dbsetup/aurora/create_tables.sql) の内容をコピーしてください
 
 ```sh
 vim create_tables.sql
 ```
 
-- 下記のように psql で create_tables.sql を実行してください。<DB の host>および 実行時に聞かれる password は前のセクションで確認した DB 接続情報をコピーしてください。
+* 下記のように psql で create_tables.sql を実行してください。<DBのhost>および 実行時に聞かれる password は前のセクションで確認した DB 接続情報をコピーしてください。
 
 ```sh
 psql -h <DBのhost> prototype postgres -f create_tables.sql
